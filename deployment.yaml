@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rp-ngoma-college
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rp-ngoma-college
+  template:
+    metadata:
+      labels:
+        app: rp-ngoma-college
+    spec:
+      containers:
+        - name: rp-ngoma-college
+          image: rp-ngoma-college:latest
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rp-ngoma-college-service
+spec:
+  selector:
+    app: rp-ngoma-college
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8085
+  type: LoadBalancer
+
